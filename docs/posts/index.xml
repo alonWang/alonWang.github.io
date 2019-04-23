@@ -2,22 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Tech Blog</title>
-    <link>https://alonwang.github.io/posts/</link>
+    <link>https://alonwang.github.io/blog/posts/</link>
     <description>Recent content in Posts on Tech Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/alonWang&#34;&gt;alonwang&lt;/a&gt; 2019</copyright>
     <lastBuildDate>Tue, 23 Apr 2019 20:38:58 +0800</lastBuildDate>
     
-	<atom:link href="https://alonwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://alonwang.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>遇到你,什么季节都是春天</title>
-      <link>https://alonwang.github.io/posts/any-season-is-spring-when-meet-you/</link>
+      <link>https://alonwang.github.io/blog/posts/any-season-is-spring-when-meet-you/</link>
       <pubDate>Tue, 23 Apr 2019 20:38:58 +0800</pubDate>
       
-      <guid>https://alonwang.github.io/posts/any-season-is-spring-when-meet-you/</guid>
+      <guid>https://alonwang.github.io/blog/posts/any-season-is-spring-when-meet-you/</guid>
       <description> 把爱与亏欠写成思念
 在你背影消失之前
 把爱与思念放在心里面
