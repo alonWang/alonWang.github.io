@@ -3,38 +3,3 @@ languageCode = "zh-cn"
 title = "Tech Blog"
 theme = "kiss"
 publishDir = "docs"
-
-copyright = "&copy; <a href=\"https://github.com/alonWang\">alonwang</a> 2019"
-# Number of posts per page
-Paginate = 5
-enableRobotsTXT = true
-
-
-[params.assets]
-customCSS = ["css/custom.css"]
-
-[params.rss]
-
-includeContent = true # Includes whole content in rss
-authorName = "alonWang" # Site author's full name
-authorEmail = "wangweilong1996@gmail.com"
-
-[params.info]
-homeTitle = "Peace" # Title for home page
-poweredby = true # Adds powered by Hugo and Kiss below Copyright section
-related = true # Includes related articles
-
-[params.social]
-github = "alonwang"
-email = "wangweilong1996@gmail.com"
-
-[params.social.config]
-platforms = ["github","email"]
-
-
-
-[taxonomies]
-tag ="tags"
-
-[blackfriday]
-hrefTargetBlank = true
