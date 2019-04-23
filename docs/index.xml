@@ -1,29 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tech Blog</title>
-    <link>https://alonwang.github.io/blog/</link>
+    <link>https://alonwang.github.io/</link>
     <description>Recent content on Tech Blog</description>
     <generator>Hugo - gohugo.io</generator>
     <language>en</language>
     <contact>wangweilong1996@gmail.com</contact>
     <copyright>&copy; <a href="https://github.com/alonWang">alonwang</a> 2019</copyright>
     
-        <atom:link href="https://alonwang.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://alonwang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>First Post</title>
-      <link>https://alonwang.github.io/blog/posts/first-post/</link>
-      <pubDate>Tue, 23 Apr 2019 16:10:00 +0800</pubDate>
+      <title>Any Season Is Spring When Meet You</title>
+      <link>https://alonwang.github.io/posts/any-season-is-spring-when-meet-you/</link>
+      <pubDate>Tue, 23 Apr 2019 20:38:58 +0800</pubDate>
       <author>alonWang</author>
-      <guid>https://alonwang.github.io/blog/posts/first-post/</guid>
+      <guid>https://alonwang.github.io/posts/any-season-is-spring-when-meet-you/</guid>
       <description></description>
       
-      <content>
+      <content>&lt;blockquote&gt;
+&lt;p&gt;把爱与亏欠写成思念&lt;/p&gt;
 
-&lt;h1 id=&#34;code-like-poetry&#34;&gt;code like poetry&lt;/h1&gt;
+&lt;p&gt;在你背影消失之前&lt;/p&gt;
 
-&lt;p&gt;poetry is beautul, so do code.&lt;/p&gt;
+&lt;p&gt;把爱与思念放在心里面&lt;/p&gt;
+
+&lt;p&gt;好久不见,真的好久不见&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在常去的奶吧里看到这句,很暖.&lt;/p&gt;
+
+&lt;p&gt;最近的生活乏善可陈,看书看文档看到烦躁,唯一的期盼也在远方,so 是时候做些改变了,随意写些文字,不再追求时刻学习,放空自我.&lt;/p&gt;
+
+&lt;p&gt;分享一个观点: &lt;code&gt;压力本身并无好坏倾向,它只是正常的生理反应,是主观看法左右着好坏&lt;/code&gt;,出自&amp;lt;自控力&amp;gt;,这本书最重要的观点即思维干预,同一件事,仅仅是对待它的思维不同,变化是如此之大.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;希望……你一定要会游泳，&lt;/p&gt;
+
+&lt;p&gt;因为我们&lt;/p&gt;
+
+&lt;p&gt;要一起坠入爱河&lt;/p&gt;
+&lt;/blockquote&gt;
 </content>
       
     </item>
