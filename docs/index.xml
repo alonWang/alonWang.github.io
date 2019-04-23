@@ -1,23 +1,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
-    <link>http://example.org/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <title>Tech Blog</title>
+    <link>https://alonwang.github.io/blog/</link>
+    <description>Recent content on Tech Blog</description>
     <generator>Hugo - gohugo.io</generator>
     <language>en</language>
-    <contact></contact>
-    <copyright></copyright>
+    <contact>wangweilong1996@gmail.com</contact>
+    <copyright>&copy; <a href="https://github.com/alonWang">alonwang</a> 2019</copyright>
     
-        <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://alonwang.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>First Post</title>
-      <link>http://example.org/posts/first-post/</link>
+      <link>https://alonwang.github.io/blog/posts/first-post/</link>
       <pubDate>Tue, 23 Apr 2019 16:10:00 +0800</pubDate>
-      <author></author>
-      <guid>http://example.org/posts/first-post/</guid>
+      <author>alonWang</author>
+      <guid>https://alonwang.github.io/blog/posts/first-post/</guid>
       <description></description>
+      
+      <content>
+
+&lt;h1 id=&#34;code-like-poetry&#34;&gt;code like poetry&lt;/h1&gt;
+
+&lt;p&gt;poetry is beautul, so do code.&lt;/p&gt;
+</content>
       
     </item>
     
