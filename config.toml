@@ -1,4 +1,4 @@
-baseURL = "https://alonwang.github.io"
+baseURL = "https://alonwang.github.io/blog"
 languageCode = "zh-cn"
 title = "Tech Blog"
 theme = "kiss"
