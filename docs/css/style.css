@@ -277,7 +277,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: monospace, sans-serif;
+  font-family:"Source Han Sans CN",monospace, sans-serif;
 }
 
 button,
@@ -326,7 +326,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro",
+  font-family: "Source Han Sans CN","游ゴシック", YuGothic, "ヒラギノ角ゴ Pro",
     "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, sans-serif;
 }
 
@@ -334,7 +334,7 @@ code,
 pre {
   -moz-osx-font-smoothing: auto;
   -webkit-font-smoothing: auto;
-  font-family: "Source Code Pro", Monaco, Inconsolata, monospace;
+  font-family: "Source Han Sans CN","Source Code Pro", Monaco, Inconsolata, monospace;
   line-height: 1.25;
 }
 
