@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tech Blog</title>
+    <title>卫龙哥哥的小站</title>
     <link>https://alonwang.github.io/blog/</link>
-    <description>Recent content on Tech Blog</description>
-    <generator>Hugo - gohugo.io</generator>
-    <language>en</language>
-    <contact></contact>
-    <copyright></copyright>
+    <description>Recent content on 卫龙哥哥的小站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 12 Jun 2019 22:22:37 +0800</lastBuildDate>
     
-        <atom:link href="https://alonwang.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://alonwang.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>小狗钱钱</title>
       <link>https://alonwang.github.io/blog/posts/xiao-gou-qian-qian/</link>
       <pubDate>Wed, 12 Jun 2019 22:22:37 +0800</pubDate>
-      <author></author>
-      <guid>https://alonwang.github.io/blog/posts/xiao-gou-qian-qian/</guid>
-      <description></description>
       
+      <guid>https://alonwang.github.io/blog/posts/xiao-gou-qian-qian/</guid>
+      <description>最近看了一本理财类的儿童读物&amp;lt;小狗钱钱&amp;gt;,内容不多,读起来也很轻松,即使是对成年人,一些建议也很有用,推荐观看.有些内容,个人认为很有意义,简单记录一下. actions speak louder than words 决不能让好奇阻碍你做事，</description>
     </item>
     
   </channel>

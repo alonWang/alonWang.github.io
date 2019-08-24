@@ -1,0 +1,17 @@
+<svg width="105" height="119" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="121" width="107" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <text transform="matrix(1,0,0,1,0,0) " font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="52" id="svg_2" y="103.5" x="0.5" stroke="#000" fill="#000000">哥哥</text>
+  <text transform="matrix(1,0,0,1,0,0) " stroke="#000" xml:space="preserve" text-anchor="start" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="52" id="svg_3" y="71.4375" x="2.5" fill="#000000"/>
+  <text stroke="#000" transform="matrix(1.6538461446762085,0,0,0.5459754467010498,-35.63461488485336,40.8905863314867) " xml:space="preserve" text-anchor="start" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="52" id="svg_4" y="75.4375" x="28.5" fill-opacity="null" stroke-opacity="null" fill="#000000"/>
+  <text transform="matrix(1,0,0,1,0,0) " font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="52" id="svg_6" y="43.5" x="0.5" stroke="#000" fill="#000000">卫龙</text>
+ </g>
+</svg>

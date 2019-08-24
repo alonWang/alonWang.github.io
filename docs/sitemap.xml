@@ -3,6 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://alonwang.github.io/blog/posts/</loc>
+    <lastmod>2019-06-12T22:22:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alonwang.github.io/blog/</loc>
+    <lastmod>2019-06-12T22:22:37+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://alonwang.github.io/blog/posts/xiao-gou-qian-qian/</loc>
     <lastmod>2019-06-12T22:22:37+08:00</lastmod>
   </url>
@@ -13,19 +25,7 @@
   </url>
   
   <url>
-    <loc>https://alonwang.github.io/blog/posts/</loc>
-    <lastmod>2019-06-12T22:22:37+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://alonwang.github.io/blog/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://alonwang.github.io/blog/</loc>
-    <lastmod>2019-06-12T22:22:37+08:00</lastmod>
     <priority>0</priority>
   </url>
   
