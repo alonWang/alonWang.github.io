@@ -3,14 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://alonwang.github.io/blog/posts/java-thread-spurious-wakeup/</loc>
+    <lastmod>2019-08-25T12:29:51+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://alonwang.github.io/blog/posts/</loc>
-    <lastmod>2019-06-12T22:22:37+08:00</lastmod>
+    <lastmod>2019-08-25T12:29:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://alonwang.github.io/blog/</loc>
-    <lastmod>2019-06-12T22:22:37+08:00</lastmod>
+    <lastmod>2019-08-25T12:29:51+08:00</lastmod>
     <priority>0</priority>
   </url>
   
