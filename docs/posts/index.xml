@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 卫龙哥哥的小站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 25 Aug 2019 12:29:51 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 04 Sep 2019 00:25:05 +0800</lastBuildDate>
     
 	<atom:link href="https://alonwang.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>两个线程交替打印1-100的数字</title>
+      <link>https://alonwang.github.io/blog/posts/multi-thread-printer/</link>
+      <pubDate>Wed, 04 Sep 2019 00:25:05 +0800</pubDate>
+      
+      <guid>https://alonwang.github.io/blog/posts/multi-thread-printer/</guid>
+      <description>分析&amp;amp;解决 一道经典的面试题,考察点是Java的notify/wait机制. 看过网上的一些解法,大同小异,不过很多都存在一个问题:输出完成后,会有一个线程由于wait后无法被唤醒导致程序一直阻塞</description>
+    </item>
     
     <item>
       <title>Java Thread Spurious Wakeup</title>

@@ -3,20 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://alonwang.github.io/blog/posts/java-thread-spurious-wakeup/</loc>
-    <lastmod>2019-08-25T12:29:51+08:00</lastmod>
+    <loc>https://alonwang.github.io/blog/posts/</loc>
+    <lastmod>2019-09-04T00:25:05+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alonwang.github.io/blog/posts/</loc>
-    <lastmod>2019-08-25T12:29:51+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://alonwang.github.io/blog/posts/multi-thread-printer/</loc>
+    <lastmod>2019-09-04T00:25:05+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://alonwang.github.io/blog/</loc>
+    <lastmod>2019-09-04T00:25:05+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alonwang.github.io/blog/posts/java-thread-spurious-wakeup/</loc>
     <lastmod>2019-08-25T12:29:51+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -26,12 +29,10 @@
   
   <url>
     <loc>https://alonwang.github.io/blog/categories/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://alonwang.github.io/blog/tags/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>
