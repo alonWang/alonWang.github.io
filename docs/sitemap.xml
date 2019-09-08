@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://alonwang.github.io/blog/posts/</loc>
-    <lastmod>2019-09-04T00:25:05+08:00</lastmod>
+    <loc>https://alonwang.github.io/blog/posts/leetcode-220/</loc>
+    <lastmod>2019-09-09T00:19:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alonwang.github.io/blog/posts/multi-thread-printer/</loc>
-    <lastmod>2019-09-04T00:25:05+08:00</lastmod>
+    <loc>https://alonwang.github.io/blog/posts/</loc>
+    <lastmod>2019-09-09T00:19:34+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://alonwang.github.io/blog/</loc>
+    <lastmod>2019-09-09T00:19:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alonwang.github.io/blog/posts/multi-thread-printer/</loc>
     <lastmod>2019-09-04T00:25:05+08:00</lastmod>
   </url>
   

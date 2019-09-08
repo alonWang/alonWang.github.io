@@ -6,10 +6,19 @@
     <description>Recent content on 卫龙哥哥的小站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 04 Sep 2019 00:25:05 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2019 00:19:34 +0800</lastBuildDate>
     
 	<atom:link href="https://alonwang.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode 220</title>
+      <link>https://alonwang.github.io/blog/posts/leetcode-220/</link>
+      <pubDate>Mon, 09 Sep 2019 00:19:34 +0800</pubDate>
+      
+      <guid>https://alonwang.github.io/blog/posts/leetcode-220/</guid>
+      <description>220. 存在重复元素 II 给定一个整数数组，判断数组中是否有两个不同的索引 i 和 j，使得 nums [i] 和 nums [j] 的差的绝对值最大为 t，并且 i 和 j 之间的差的绝对值最大为 ķ。 示例 1: 输入: nums = [1,2,3,1], k = 3, t = 0 输出: true 示例 2: 输入: nums = [1,0,1,1],</description>
+    </item>
     
     <item>
       <title>两个线程交替打印1-100的数字</title>
