@@ -1,3 +1,0 @@
-User-agent: *
-
-Sitemap: https://alonwang.github.io/sitemap.xml
