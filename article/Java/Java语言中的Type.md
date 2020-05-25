@@ -28,7 +28,7 @@
 
 ![泛型的类型体系](./img/泛型的类型体系.png)
 
-在Type体系下,Java编程语言共有四种"类型": 原始类型,参数化类型,泛型数组类型,通配符类型
+在Type体系下,Java编程语言共有四种"类型": 原始类型,参数化类型,类型变量,泛型数组类型
 
 * **Class** 与之前的含义相同,代表**原始类型**
 * **ParameterizedType** **参数化类型**, 比如` List<Integer>,List<Double>,List<T> `在这里参数化指的就是 `Integer`和`Double`,`T`. 
