@@ -6,4 +6,4 @@
 ### Spring
 * [Spring基础](./article/Spring/Spring基础)
 ### 领域驱动设计
-* [领域驱动设计基础](./article/DDD/领域驱动设计基础.md)
+* [DDD之初识](./article/DDD/DDD之初识.md)
