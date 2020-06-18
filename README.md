@@ -3,6 +3,7 @@
 * [JVM详解](./article/Java/JVM详解.md)
 * [Instrument(热更必备)](./article/Java/Instrument.md)
 * [Java语言中的Type](./article/Java/Java语言中的Type.md)
+* [榨干枚举](./article/Java/榨干枚举.md)
 ### Spring
 * [Spring基础](./article/Spring/Spring基础)
 ### 领域驱动设计
