@@ -4,6 +4,7 @@
 * [Instrument(热更必备)](./article/Java/Instrument.md)
 * [Java语言中的Type](./article/Java/Java语言中的Type.md)
 * [榨干枚举](./article/Java/榨干枚举.md)
+* [枚举和设计模式不得不说的故事](./article/Java/枚举和设计模式不得不说的故事.md)
 ### Spring
 * [Spring基础](./article/Spring/Spring基础)
 ### 领域驱动设计
