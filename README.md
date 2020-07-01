@@ -3,12 +3,13 @@
 * [JVM详解](./article/Java/JVM详解.md)
 * [Instrument(热更必备)](./article/Java/Instrument.md)
 * [Java语言中的Type](./article/Java/Java语言中的Type.md)
+* [榨干枚举](./article/Java/榨干枚举.md)
+* [枚举和设计模式不得不说的故事](./article/Java/枚举和设计模式不得不说的故事.md)
 ### Spring
 * [Spring基础](./article/Spring/Spring基础.md)
 ### Netty
 * [Netty原理介绍](./article/Netty/Netty原理简介.md)
 ### 领域驱动设计
-* [领域驱动设计基础](./article/DDD/领域驱动设计基础.md)
-
+* [DDD之初识](./article/DDD/DDD之初识.md)
 ### 算法
 * [TopK](./article/Algorithm/TopK.md)
