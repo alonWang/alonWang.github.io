@@ -1,3 +1,5 @@
+### 基础
+* [字节序-大头端小头端](./article/Basic/字节序-大头端小头端.md)
 ### Java
 * [Java基础](./article/Java/Java基础.md)
 * [JVM详解](./article/Java/JVM详解.md)
