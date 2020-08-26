@@ -15,6 +15,8 @@
 * [打造自己的通信框架二——自定义与客户端交互的协议格式](./article/Netty/打造自己的通信框架二.md)
 * [打造自己的通信框架三——Request,Response封装](./article/Netty/打造自己的通信框架三.md)
 * [打造自己的通信框架四——NettyServer搭建](./article/Netty/打造自己的通信框架四.md)
+* [打造自己的通信框架五——异步串行无锁化](./article/Netty/打造自己的通信框架五.md)
+
 ### 领域驱动设计
 * [DDD之初识](./article/DDD/DDD之初识.md)
 ### 算法
