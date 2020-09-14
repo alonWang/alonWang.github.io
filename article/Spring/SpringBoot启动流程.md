@@ -4,10 +4,6 @@
 
 
 
-SpringBoot的启动过程涵盖了Spring Framework的方方面面,对于想研究源码的新手,很容易陷入无尽的函数调用栈,
-
-因此本文将通过下图梳理启动流程,力求读者对此有一个全面的认识.
-
 ![](img/SpringBoot-startup.png)
 
 ## 正文
