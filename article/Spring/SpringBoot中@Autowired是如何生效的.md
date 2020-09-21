@@ -10,9 +10,11 @@ public class SimpleBean3 {
 ```
 @Autowired修饰的字段会被容器自动注入.那么Spring Boot中使如何实现这一功能的呢? 
 
-> **AutowiredAnnotationBeanPostProcessor**
 
-AutowiredAnnotationBeanPostProcessor间接实现了**InstantiationAwareBeanPostProcessor**接口.通过**postProcessProperties(...)**完成@Autowired的注入
+
+### **AutowiredAnnotationBeanPostProcessor**
+
+AutowiredAnnotationBeanPostProcessor(以下简称AutowiredProcessor)间接实现了**InstantiationAwareBeanPostProcessor**接口.通过**postProcessProperties(...)**完成@Autowired的注入
 
 本文将按照Spring Boot的启动流程梳理出AutowiredAnnotationBeanPostProcessor的生效逻辑.
 
@@ -22,7 +24,7 @@ AutowiredAnnotationBeanPostProcessor间接实现了**InstantiationAwareBeanPostP
 
 # 正文
 
-### 注册AutowiredAnnotationBeanPostProcessor的BeanDefinition
+### 注册AutowiredProcessor的BeanDefinition
 
 **org.springframework.boot.SpringApplication#createApplicationContext**默认会创建 **AnnotationConfigApplicationContext**,而AnnotationConfigApplicationContext会创建**AnnotatedBeanDefinitionReader**
 
@@ -33,7 +35,7 @@ AutowiredAnnotationBeanPostProcessor间接实现了**InstantiationAwareBeanPostP
 	}
 ```
 
-AnnotatedBeanDefinitionReader构造时会调用**AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry)**,将AutowiredAnnotationBeanPostProcessor的BeanDefinition注册到容器
+AnnotatedBeanDefinitionReader构造时会调用**AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry)**,将AutowiredProcessor的BeanDefinition注册到容器
 
 ```
 	public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
@@ -53,7 +55,7 @@ AnnotatedBeanDefinitionReader构造时会调用**AnnotationConfigUtils.registerA
 	}
 ```
 
-### 实例化AutowiredAnnotationBeanPostProcessor
+### 实例化AutowiredProcessor
 
 在AbstractApplicationContext的refresh阶段,会注册并实例化所有的BeanPostProcessor
 
@@ -101,7 +103,7 @@ public void refresh() throws BeansException, IllegalStateException {
 	}
 ```
 
-在PostProcessorRegistrationDelegate中,获取到所有的BeanPostProcessor(基于BeanDefinition),并将其分为几种类型,并按照不同的优先级进行处理化,这块不是这篇文章的重点,我们只需要知道**在这里AutowiredAnnotationBeanPostProcessor被注册**就可以了.
+在PostProcessorRegistrationDelegate中,获取到所有的BeanPostProcessor(基于BeanDefinition),并将其分为几种类型,并按照不同的优先级进行处理化,这块不是这篇文章的重点,我们只需要知道**在这里AutowiredProcessor被注册**就可以了.
 
 ### 创建bean时进行注入
 
@@ -162,7 +164,7 @@ public void preInstantiateSingletons() throws BeansException {
 
 ![](img/SpringBoot-autowired-stacktrace.jpg)
 
-在populateBean中,会将所有的BeanPostProcessor应用在这个bean上,包括AutowiredAnnotationBeanPostProcessor
+在populateBean中,会将所有的BeanPostProcessor应用在这个bean上,包括AutowiredProcessor
 ```java
 protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
 //...忽略部分代码
@@ -193,7 +195,7 @@ protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable B
 	}
 ```
 
-AutowiredAnnotationBeanPostProcessor的postProcessProperties()会进行注入操作,这又需要找到注入的元数据(InjectionMetadata)
+AutowiredProcessor的postProcessProperties()会进行注入操作,这又需要找到注入的元数据(InjectionMetadata)
 
 ```java
 public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) {		
@@ -242,7 +244,7 @@ private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
 
 ```
 
-findAutowiredAnnotation()根据AutowiredAnnotationBeanPostProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredAnnotationBeanPostProcessor创建时初始化
+findAutowiredAnnotation()根据AutowiredProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredProcessor创建时初始化
 
 ```java
 public AutowiredAnnotationBeanPostProcessor() {
@@ -259,5 +261,5 @@ public AutowiredAnnotationBeanPostProcessor() {
 	}
 ```
 
-大功告成,AutowiredAnnotationBeanPostProcessor支持**Autowired,Value,Inject**这三种注解.
+大功告成,AutowiredProcessor支持**Autowired,Value,Inject**这三种注解.
 
