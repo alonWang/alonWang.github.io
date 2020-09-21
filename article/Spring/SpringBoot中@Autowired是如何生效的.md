@@ -10,23 +10,21 @@ public class SimpleBean3 {
 ```
 @Autowired修饰的字段会被容器自动注入.那么Spring Boot中使如何实现这一功能的呢? 
 
+### **是它--AutowiredAnnotationBeanPostProcessor**
 
+AutowiredAnnotationBeanPostProcessor(以下简称AutowiredProcessor)间接实现了**InstantiationAwareBeanPostProcessor**接口.通过postProcessProperties(...)完成@Autowired的注入
 
-### **AutowiredAnnotationBeanPostProcessor**
-
-AutowiredAnnotationBeanPostProcessor(以下简称AutowiredProcessor)间接实现了**InstantiationAwareBeanPostProcessor**接口.通过**postProcessProperties(...)**完成@Autowired的注入
-
-本文将按照Spring Boot的启动流程梳理出AutowiredAnnotationBeanPostProcessor的生效逻辑.
+本文将按照Spring Boot的启动流程梳理出AutowiredProcessor的生效逻辑.
 
 ![](img/SpringBoot-autowired.png)
 
 
 
-# 正文
+## 正文
 
 ### 注册AutowiredProcessor的BeanDefinition
 
-**org.springframework.boot.SpringApplication#createApplicationContext**默认会创建 **AnnotationConfigApplicationContext**,而AnnotationConfigApplicationContext会创建**AnnotatedBeanDefinitionReader**
+**SpringApplication#createApplicationContext**默认会创建 **AnnotationConfigApplicationContext**,而AnnotationConfigApplicationContext又会创建**AnnotatedBeanDefinitionReader**
 
 ```java
 	public AnnotationConfigApplicationContext() {
@@ -37,7 +35,7 @@ AutowiredAnnotationBeanPostProcessor(以下简称AutowiredProcessor)间接实现
 
 AnnotatedBeanDefinitionReader构造时会调用**AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry)**,将AutowiredProcessor的BeanDefinition注册到容器
 
-```
+```java
 	public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 			BeanDefinitionRegistry registry, @Nullable Object source) {
 
@@ -107,7 +105,7 @@ public void refresh() throws BeansException, IllegalStateException {
 
 ### 创建bean时进行注入
 
-以SimpleBean3的注入为例, 它是单例的,在AbstractApplicationContext.refresh()的**finishBeanFactoryInitialization(beanFactory)**会初始化.
+以SimpleBean3的注入为例, 它是单例的,在AbstractApplicationContext.refresh()的**finishBeanFactoryInitialization(beanFactory)**时创建.
 
 ```java
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
@@ -158,7 +156,7 @@ public void preInstantiateSingletons() throws BeansException {
 	}
 ```
 
-经过一连串的辗转,最终调用到**org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#populateBean**
+经过一连串的辗转,最终调用到**AbstractAutowireCapableBeanFactory#populateBean**
 
 附上调用链路
 
@@ -167,7 +165,7 @@ public void preInstantiateSingletons() throws BeansException {
 在populateBean中,会将所有的BeanPostProcessor应用在这个bean上,包括AutowiredProcessor
 ```java
 protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
-//...忽略部分代码
+		//...忽略部分代码
 		PropertyDescriptor[] filteredPds = null;
 		if (hasInstAwareBpps) {
 			if (pvs == null) {
@@ -195,13 +193,14 @@ protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable B
 	}
 ```
 
-AutowiredProcessor的postProcessProperties()会进行注入操作,这又需要找到注入的元数据(InjectionMetadata)
+AutowiredProcessor的postProcessProperties()会进行注入操作,这需要找到注入的元数据(InjectionMetadata)
 
 ```java
 public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) {		
 		//### 找到AutowringMetadata #####
 		InjectionMetadata metadata = findAutowiringMetadata(beanName, bean.getClass(), pvs);
 		try {
+      // #### 注入 ###
 			metadata.inject(bean, beanName, pvs);
 		}
 		catch (BeanCreationException ex) {
@@ -214,7 +213,7 @@ public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, Str
 	}
 ```
 
-findAutowiringMetadata()又调用到buildAutowiringMetadata()
+findAutowiringMetadata()又调用到buildAutowiringMetadata(),生成代表可注入元素的InjectMetadata
 
 ```java
 private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
@@ -244,7 +243,7 @@ private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
 
 ```
 
-findAutowiredAnnotation()根据AutowiredProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredProcessor创建时初始化
+findAutowiredAnnotation()根据AutowiredProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredProcessor创建时初始化,可以看到支持**@Autowired,@Value,@Inject**三种类型的注入标识.
 
 ```java
 public AutowiredAnnotationBeanPostProcessor() {
@@ -261,5 +260,23 @@ public AutowiredAnnotationBeanPostProcessor() {
 	}
 ```
 
-大功告成,AutowiredProcessor支持**Autowired,Value,Inject**这三种注解.
+Bean注入这块比较乱,让我们梳理一下
+
+>  =>提前初始化所有单例bean(preInstantiateSingletons())
+>
+> ​	 => 获取bean getBean()
+>
+> ​		=> 创建bean doCreateBean()
+>
+> ​			=>生成bean populateBean()
+>
+> ​				=> 应用AutowiredProcessor ibp.postProcessProperties()
+>
+> ​						=>  找到可注入的字段(buildAutowiringMetadata)
+>
+> ​							=> 注入(metadata.inject)
+
+## 后记
+
+至此,@Autowired的生效逻辑整理完毕
 
