@@ -10,7 +10,9 @@ public class SimpleBean3 {
 ```
 @Autowired修饰的字段会被容器自动注入.那么Spring Boot中使如何实现这一功能的呢? 
 
-**AutowiredAnnotationBeanPostProcessor**,它间接实现了**InstantiationAwareBeanPostProcessor**接口.通过**postProcessProperties(...)**完成@Autowired的注入
+> **AutowiredAnnotationBeanPostProcessor**
+
+AutowiredAnnotationBeanPostProcessor间接实现了**InstantiationAwareBeanPostProcessor**接口.通过**postProcessProperties(...)**完成@Autowired的注入
 
 本文将按照Spring Boot的启动流程梳理出AutowiredAnnotationBeanPostProcessor的生效逻辑.
 
@@ -99,7 +101,7 @@ public void refresh() throws BeansException, IllegalStateException {
 	}
 ```
 
-在PostProcessorRegistrationDelegate中,获取到所有的BeanPostProcessor(基于BeanDefinition),将其分为几种类型,并按照不同的优先级进行处理化,这块不是这篇文章的重点,我们只需要知道在这里AutowiredAnnotationBeanPostProcessor被注册就可以了.
+在PostProcessorRegistrationDelegate中,获取到所有的BeanPostProcessor(基于BeanDefinition),并将其分为几种类型,并按照不同的优先级进行处理化,这块不是这篇文章的重点,我们只需要知道**在这里AutowiredAnnotationBeanPostProcessor被注册**就可以了.
 
 ### 创建bean时进行注入
 
@@ -114,7 +116,7 @@ public void refresh() throws BeansException, IllegalStateException {
 	}
 ```
 
-调用到了BeanFactory.preInstantiateSingletons()
+调用到了BeanFactory.preInstantiateSingletons(),走到getBean()逻辑
 
 ```java
 public void preInstantiateSingletons() throws BeansException {
@@ -160,9 +162,102 @@ public void preInstantiateSingletons() throws BeansException {
 
 ![](img/SpringBoot-autowired-stacktrace.jpg)
 
+在populateBean中,会将所有的BeanPostProcessor应用在这个bean上,包括AutowiredAnnotationBeanPostProcessor
 ```java
+protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
+//...忽略部分代码
+		PropertyDescriptor[] filteredPds = null;
+		if (hasInstAwareBpps) {
+			if (pvs == null) {
+				pvs = mbd.getPropertyValues();
+			}
+			for (BeanPostProcessor bp : getBeanPostProcessors()) {
+				if (bp instanceof InstantiationAwareBeanPostProcessor) {
+					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+          //###### 调用到postProcessProperties #####
+					PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
+					if (pvsToUse == null) {
+						if (filteredPds == null) {
+							filteredPds = filterPropertyDescriptorsForDependencyCheck(bw, mbd.allowCaching);
+						}
+						pvsToUse = ibp.postProcessPropertyValues(pvs, filteredPds, bw.getWrappedInstance(), beanName);
+						if (pvsToUse == null) {
+							return;
+						}
+					}
+					pvs = pvsToUse;
+				}
+			}
+		}
+	//...忽略部分代码
+	}
+```
+
+AutowiredAnnotationBeanPostProcessor的postProcessProperties()会进行注入操作,这又需要找到注入的元数据(InjectionMetadata)
+
+```java
+public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) {		
+		//### 找到AutowringMetadata #####
+		InjectionMetadata metadata = findAutowiringMetadata(beanName, bean.getClass(), pvs);
+		try {
+			metadata.inject(bean, beanName, pvs);
+		}
+		catch (BeanCreationException ex) {
+			throw ex;
+		}
+		catch (Throwable ex) {
+			throw new BeanCreationException(beanName, "Injection of autowired dependencies failed", ex);
+		}
+		return pvs;
+	}
+```
+
+findAutowiringMetadata()又调用到buildAutowiringMetadata()
+
+```java
+private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
+		List<InjectionMetadata.InjectedElement> elements = new ArrayList<>();
+		Class<?> targetClass = clazz;
+
+		do {
+			final List<InjectionMetadata.InjectedElement> currElements = new ArrayList<>();
+
+			ReflectionUtils.doWithLocalFields(targetClass, field -> {
+        //###### 找到带有可注入注解的字段
+				AnnotationAttributes ann = findAutowiredAnnotation(field);
+				if (ann != null) {
+					if (Modifier.isStatic(field.getModifiers())) {
+						if (logger.isInfoEnabled()) {
+							logger.info("Autowired annotation is not supported on static fields: " + field);
+						}
+						return;
+					}
+					boolean required = determineRequiredStatus(ann);
+					currElements.add(new AutowiredFieldElement(field, required));
+				}
+			});
+
+			//...忽略部分代码
+	}
 
 ```
 
+findAutowiredAnnotation()根据AutowiredAnnotationBeanPostProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredAnnotationBeanPostProcessor创建时初始化
 
+```java
+public AutowiredAnnotationBeanPostProcessor() {
+		this.autowiredAnnotationTypes.add(Autowired.class);
+		this.autowiredAnnotationTypes.add(Value.class);
+		try {
+			this.autowiredAnnotationTypes.add((Class<? extends Annotation>)
+					ClassUtils.forName("javax.inject.Inject", AutowiredAnnotationBeanPostProcessor.class.getClassLoader()));
+			logger.trace("JSR-330 'javax.inject.Inject' annotation found and supported for autowiring");
+		}
+		catch (ClassNotFoundException ex) {
+			// JSR-330 API not available - simply skip.
+		}
+	}
+```
+
+大功告成,AutowiredAnnotationBeanPostProcessor支持**Autowired,Value,Inject**这三种注解.
 
