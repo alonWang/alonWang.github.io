@@ -8,13 +8,12 @@ public class SimpleBean3 {
     private SimpleBean simpleBean;
 }
 ```
-@Autowired修饰的字段会被容器自动注入.那么Spring Boot中使如何实现这一功能的呢? 
+@Autowired修饰的字段会被容器自动注入.那么Spring Boot中使如何实现这一功能呢? **AutowiredAnnotationBeanPostProcessor!**
 
-### **是它--AutowiredAnnotationBeanPostProcessor**
+> BeanPostProcessor implementation that autowires annotated fields, setter methods, and arbitrary config methods. Such members to be injected are detected through annotations: by default, Spring's @Autowired and @Value annotations.
+> Also supports JSR-330's @Inject annotation, if available, as a direct alternative to Spring's own @Autowired.
 
-AutowiredAnnotationBeanPostProcessor(以下简称AutowiredProcessor)间接实现了**InstantiationAwareBeanPostProcessor**接口.通过postProcessProperties(...)完成@Autowired的注入
-
-本文将按照Spring Boot的启动流程梳理出AutowiredProcessor的生效逻辑.
+AutowiredAnnotationBeanPostProcessor(以下简称AutowiredProcessor)间接实现了InstantiationAwareBeanPostProcessor接口.通过postProcessProperties(...)完成@Autowired的注入,本文将按照下图流程梳理AutowiredProcessor的生效逻辑.
 
 ![](img/SpringBoot-autowired.png)
 
