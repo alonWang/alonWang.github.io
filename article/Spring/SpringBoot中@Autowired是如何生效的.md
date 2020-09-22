@@ -243,7 +243,7 @@ private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
 
 ```
 
-findAutowiredAnnotation()根据AutowiredProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredProcessor创建时初始化,可以看到支持**@Autowired,@Value,@Inject**三种类型的注入标识.
+findAutowiredAnnotation()根据AutowiredProcessor的实例字段autowiredAnnotationTypes,去查看是否匹配,这个字段是在AutowiredProcessor创建时初始化,可以看到支持**@Autowired,@Value,@Inject**三种类型的注入标识.最终据此完成注入
 
 ```java
 public AutowiredAnnotationBeanPostProcessor() {
@@ -260,11 +260,26 @@ public AutowiredAnnotationBeanPostProcessor() {
 	}
 ```
 
-Bean注入这块比较乱,让我们梳理一下
 
->  =>提前初始化所有单例bean(preInstantiateSingletons())
+
+## 后记
+最后再来梳理一下整个流程.
+
+首先是AutowiredPorcessor的BeanDefinition的注册
+
+>=> 创建ApplicationContext  
 >
-> ​	 => 获取bean getBean()
+>​	=> 创建AnnotatedBeanDefinitionReader
+>
+>​		=> 注册BeanDefinition	registerAnnotationConfigProcessors
+
+然后是AutowiredProcessor注册为bean
+
+> => registerBeanPostProcessors
+
+最后是注入
+
+>  ​	 => 获取bean getBean()
 >
 > ​		=> 创建bean doCreateBean()
 >
@@ -272,11 +287,8 @@ Bean注入这块比较乱,让我们梳理一下
 >
 > ​				=> 应用AutowiredProcessor ibp.postProcessProperties()
 >
-> ​						=>  找到可注入的字段(buildAutowiringMetadata)
+> ​						=>  找到可注入的字段 buildAutowiringMetadata
 >
-> ​							=> 注入(metadata.inject)
+> ​							=> 注入 metadata.inject
 
-## 后记
-
-至此,@Autowired的生效逻辑整理完毕
-
+至此,@Autowired生效逻辑梳理完成
