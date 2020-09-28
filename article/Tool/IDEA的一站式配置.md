@@ -100,3 +100,17 @@ IDEA也是一个JAVA项目,可以配置其JVM启动参数以获得更好体验
 代码排列(rearrange),勾选 Grouping rules, 个人项目我一般都会勾上.团队项目就不要用了.
 
 ![image-20200927201011484](img/idea-rearrange.png)
+
+
+
+### live template
+
+放个效果图,这个比较复杂,具体使用参见我的另一篇文章[idea中live template的详细使用教程](https://www.jianshu.com/p/3974df6572af)
+
+![](img/idea-live-template.gif)
+
+### file and code template
+
+给你的新建文件添加作者时间等信息,这里还可以使用Apache Velocity引擎进行更高级的操作,详见[idea中file template的较高级使用](https://www.jianshu.com/p/189ce7ea7ba6)
+
+![image-20200928213752129](img/idea-file-template.png)
