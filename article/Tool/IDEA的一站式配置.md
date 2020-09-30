@@ -123,3 +123,12 @@ IDEA也是一个JAVA项目,可以配置其JVM启动参数以获得更好体验
 给你的新建文件添加作者时间等信息,这里还可以使用Apache Velocity引擎进行更高级的操作,详见[idea中file template的较高级使用](https://www.jianshu.com/p/189ce7ea7ba6)
 
 ![image-20200928213752129](img/idea-file-template.png)
+
+
+
+### 插件篇
+
+* Codota AI代码提示+相关代码示例
+* Material Theme UI 超好看的UI,我习惯使用Arch风格
+* Rainbow Brackets  让你的括号变得五颜六色
+* VisualVM Launcher  随时随时打开 VisualVM
