@@ -12,6 +12,7 @@
 * [SpringBoot启动简介](./article/Spring/SpringBoot启动流程.md)
 * [SpringBoot中@Autowired是如何生效的](./article/Spring/SpringBoot中@Autowired是如何生效的.md)
 * [ApplicationContext是如何注入的](./article/Spring/ApplicationContext是如何被注入的.md)
+* [SpringBoot中@Component时如何生效的](./article/Spring/SpringBoot中@Component是如何生效的.md)
 ### Netty
 * [Netty原理介绍](./article/Netty/Netty原理简介.md)
 * [ 打造自己的通信框架一——引言](./article/Netty/打造自己的通信框架一.md)
