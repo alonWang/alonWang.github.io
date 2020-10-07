@@ -24,6 +24,8 @@ public class SimpleBean{
 
 ## 正文
 
+### @SpringBootApplication简介
+
 @SpringBootApplication注解是SpringBoot的关键,它组合了@Configuration,@ComponentScan等注解,有必要提前了解一下,源码如下
 
 ```java
@@ -54,15 +56,15 @@ public @interface SpringBootApplication {
 ```
 这里要提一下,**Spring对注解的处理通常是递归的**,例如查找SpringLifecycleApplication这个类是否被@Configuration注解,会经历以下几步
 
-> 查找SpringLifecycleApplication的注解, 找到@SpringBootApplication,不是需要的@Configuration,继续
+> 查找SpringLifecycleApplication的注解, 找到`@SpringBootApplication`,不是需要的`@Configuration`,继续
 >
-> 查找修饰@SpringBootApplication的注解, 找到@SpringBootConfiguration,@ComponentScan等注解
+> 查找修饰`@SpringBootApplication`的注解, 找到`@SpringBootConfiguration`,`@ComponentScan`等注解
 >
-> 还是没有符合的,再查看修饰这些注解的注解~ 如此递归查找,在SpringBootConfiguration中找到@Configuration,成功
+> 还是没有符合的,再查看修饰这些注解的注解~ 如此递归查找,在@SpringBootConfiguration中找到`@Configuration`,成功
 
-类似的还有@Service,@Controller.它们都被@Component修饰,因此查找包含@Component注解的类时它们也是符合的.
+类似的还有@`Service`,`@Controller`.它们都被`@Component`修饰,因此查找包含`@Component`注解的类时它们也是符合的.
 
-
+### @Component的生效逻辑
 
 下面将按照SpringBoot的启动流程讲解@Component,参见下图
 
@@ -96,6 +98,18 @@ ConfigurationClassPostProcessor会处理带@Configuartion修饰的bean,下面会
   > 执行所有BeanFactoryPostProcessor,如果执行后有新的BeanFactoryPostProcessor生成,执行它们,循环进行直到没有新的BeanFactoryPostProcessor生成
   
 * postProcessBeanFactory()**允许对现有的BeanDefinition做修改**,这个是一次性全部调用
+
+这里有一个涉及到bean生命周期的问题, 如果一个BeanFactoryPostProcessor通过@Autowired依赖其他bean,  会生效吗?
+
+```java
+@Component
+public class SimpleBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+    @Autowired
+    private SimpleBean simpleBean;
+}
+```
+
+**不会**,BeanFactoryPostProcessor初始化时还没有 BeanpostProcessor,而@Autowired又是依赖AutowiredAnnotationBeanPostProcessor进行注入,这就导致BeanFactoryPostProcessor中的依赖不会被注入,simpleBean一直为null
 
 回归正文,这一步生成并调用前面注册的ConfigurationClassPostProcessor,它逻辑是: **查找现有的BeanDefinition(是包含SpringLifecycleApplication的BeanDefinition),对带有@Configuration注解的,使用`ConfigurationClassParser`进行解析处理**,判断是否为满足@Configuration注解要求的逻辑如下
 
@@ -196,23 +210,7 @@ protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
 	}
 ```
 
-
-
-## 后记
-
-### 一个可能的迷惑点
-如果一个BeanFactoryPostProcessor通过@Autowired依赖其他bean,  会生效吗?
-```java
-@Component
-public class SimpleBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor {
-    @Autowired
-    private SimpleBean simpleBean;
-}
-```
-**不会**,BeanFactoryPostProcessor初始化时还没有 BeanpostProcessor,而@Autowired又是依赖AutowiredAnnotationBeanPostProcessor进行注入,这就导致BeanFactoryPostProcessor中的依赖不会被注入,simpleBean一直为null
-
-那么同样的逻辑放到BeanPostProcessor上会生效吗?
-**会**对BeanPostProcessor,由于用户注册的BeanPostProcessor一定在AutowiredAnnotationBeanPostProcessor之后,依赖是可以注入的,simpleBean会被正常注入
+至此@Component生效逻辑讲解完毕.
 
 
 
