@@ -86,6 +86,8 @@ IDEA也是一个JAVA项目,可以配置其JVM启动参数以获得更好体验
 ```properties
 # 加载字节码时,不进行验证. 在这个场景下,可以减少不必要的性能损耗
 -Xverify:none
+# 全局UTF-8编码 从此远离乱码
+-Dfile.encoding=UTF-8
 ```
 
 
@@ -123,6 +125,14 @@ IDEA也是一个JAVA项目,可以配置其JVM启动参数以获得更好体验
 给你的新建文件添加作者时间等信息,这里还可以使用Apache Velocity引擎进行更高级的操作,详见[idea中file template的较高级使用](https://www.jianshu.com/p/189ce7ea7ba6)
 
 ![image-20200928213752129](img/idea-file-template.png)
+
+```java
+/**
+* 
+*@author alonwang
+*@date ${DATE} ${TIME}
+*/
+```
 
 
 
