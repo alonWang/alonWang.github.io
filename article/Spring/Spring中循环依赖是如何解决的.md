@@ -4,7 +4,7 @@
 
 背景 只针对setter注入和field注入这两种方式,
 
-field注入实质是通过反射的setter注入,一下统称setter注入
+field注入实质是通过Field反射注入,下面统称setter注入
 
 案例 两个简单bean
 
@@ -62,19 +62,19 @@ getSingleton(String beanName, ObjectFactory<?> objectFactory)
 1. **请求获取A**
 2. 从`singletonObjects`和`singletonsCurrentlyInCreation`都没发现A,说明A还不存在
 3. 标记A开始创建,记录到`singletonsCurrentlyInCreation`
-4. 实例化A.singletonFactories`添加A
+4. 实例化A.`singletonFactories`添加A
 6. 开始注入属性,发现需要B,请求获取B
 7. 从``singletonObjects`和`singletonsCurrentlyInCreation`都没发现B,说明B还不存在,
 8. 标记B开始创建,记录到`singletonsCurrentlyInCreation`
-9. 实例化B,singletonFactories添加B
-11. 开始注入属性,发现需要A,请求获取A
-12. 从`singletonObjects`没找到A但是`singletonsCurrentlyInCreation`中有A,从`singletonFactories`成功找到
-13. 调用A的ObjectFactory.getObject()获取到A的引用, synchronize[移除singletonFactories,添加earlySingletonObjects],返回A的引用给步骤9
+9. 实例化B,`singletonFactories`添加B
+11. B开始注入属性,发现需要A,请求获取A
+12. 从`singletonObjects`没找到A但是`singletonsCurrentlyInCreation`中有A,`earlySingletonObjects`也没有A,最后从`singletonFactories`成功找到
+13. 调用A的ObjectFactory.getObject()获取到A的引用, synchronize[移除A的`singletonFactories`,添加A的`earlySingletonObjects`],返回A的引用给步骤9
 14. B注入属性完成,初始化完成.`移除singletonsCurrentlyInCreation`
-15. synchronize[添加B到singletonObjects,从earlySingletonObjects移除B]
+15. synchronize[添加B到`singletonObjects`,从`earlySingletonObjects`移除B]
 16. 给步骤5 **返回B**
 17. A注入属性完成,初始化完成.移除singletonsCurrentlyInCreation
-18. synchronize[添加A到singletonObjects,从earlySingletonObjects移除B]
+18. synchronize[添加A到`singletonObjects`,从`earlySingletonObjects`移除A,从`singletonFactory`移除A]
 19. **返回A**
 
 虽然B中的A是从earlySingletonObjects中获取的,但是他和最终存储在singletonObjects中的A是相同的引用.因此是相同的.
