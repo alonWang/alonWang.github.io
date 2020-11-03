@@ -42,7 +42,7 @@
 * 修改setting.xml 修改本地仓库地址 添加国内镜像,默认profile
 
 ```xml
-
+<localRepository>/path/to/local/repo</localRepository>
 
 <mirror>
 <id>nexus-aliyun</id>
