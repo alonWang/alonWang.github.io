@@ -86,7 +86,7 @@ getSingleton(String beanName, ObjectFactory<?> objectFactory)
 四个阶段
 
 * 标记开始创建
-* 标记可以创建
+* 记录已经实例化
 * 标记创建但不完备
 * 标记创建完成
 
