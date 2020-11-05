@@ -49,31 +49,31 @@ public class B {
 
 ## 正文
 
-首先了解一下两种方式下bean的创建流程
+### 两种方式下bean的创建流程
 
 ![](https://raw.githubusercontent.com/alonWang/alonwang.github.io/master/article/Spring/img/spring-bean-create.svg)
 
 在setter注入方式下的详细流程为
 
 1. 实例化. 调用bean的无参构建函数生成实例.
-2. 注入依赖属性. 从容器中获取该bean依赖属性的实例(如果没有,进入待注入属性对应bean的创建流程),进行注入.
+2. 注入依赖属性. 从容器中获取该bean依赖属性的实例(如果没有,进入依赖属性对应bean的创建流程),进行注入.
 3. 初始化. 如果bean实现了InitializingBean或@PostConstruct形式的初始化方法,进行调用
 
 在构造器注入方式下的详细流程为
 
 1. 获取依赖属性&实例化. 在容器中找到有参构造器中声明的参数的实例((如果没有,进入依赖属性对应bean的创建流程)),并用这些这些参数调用这个构造函数生成实例
 
-2. 初始化. 同上
-
-需要注意,在实例化中生成的实例后,后续的操作都是作用在这个实例上的.
+2. 初始化. 同setter注入
 
 ### 构造器注入无法解决循环依赖的原因
 
-构造器注入必须先获取依赖属性才能完成实例化,这是其无法解决循环依赖的根本原因.用上面的例子说明
+**构造器注入必须先获取依赖属性才能完成实例化**,这是其无法解决循环依赖的根本原因.用上面的例子说明
 
 1. 开始创建A
 2. 获取A的依赖属性b对应的实例B,发现还没有,开始创建B
 3. 获取B的依赖属性a对应的实例A,发现它正在创建中,Spring检测到这一点立刻报错,提示发生无法解决的循环依赖.
+
+
 
 ### setter注入解决循环依赖的方式
 
@@ -90,21 +90,64 @@ setter注入下实例化和依赖属性注入是分开的,这是其可以解决�
 
 流程如下图
 
-![](https://raw.githubusercontent.com/alonWang/alonwang.github.io/master/article/Spring/img/spring-cycle-reference.svg)
+![](https://raw.githubusercontent.com/alonWang/alonwang.github.io/master/article/Spring/img/Spring-cycle-reference.svg)
 
-DefaultSingletonBeanRegistry的四个属性
+
+
+setter方式解决循环依赖的核心就是**提前将仅完成实例化的bean暴露出来,提供给其他bean**,这个暴露的地方就是图中的**地方X**,
+
+这个地方X,在Spring代码中,对应的是`DefaultSingletonBeanRegistry`的两个属性
 
 ```java
-/** Names of beans that are currently in creation. */
-private final Set<String> singletonsCurrentlyInCreation 
 /** Cache of singleton factories: bean name to ObjectFactory. */
 private final Map<String, ObjectFactory<?>> singletonFactories 
 /** Cache of early singleton objects: bean name to bean instance. */
 private final Map<String, Object> earlySingletonObjects 
-/** Cache of singleton objects: bean name to bean instance. */
-private final Map<String, Object> singletonObjects 
 ```
+singletonFactories存储的是生成bean的工厂,工厂签名如下及添加逻辑如下
+
+```java
+public interface ObjectFactory<T> {
+	T getObject() throws BeansException;
+}
+//实例化之后添加到singletonFactory
+//getEarlyBeanReference会对bean做修改,例如代理或mock,因此返回的对象和传入的bean可能是不同的
+addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+```
+
+earlySingletonObjects存储的则是从这个工厂生成的bean.相关逻辑如下
+
+```java
+//DefaultSingletonBeanRegistry	
+protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+		Object singletonObject = this.singletonObjects.get(beanName);
+		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+			synchronized (this.singletonObjects) {
+				singletonObject = this.earlySingletonObjects.get(beanName);
+				if (singletonObject == null && allowEarlyReference) {
+					ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+					if (singletonFactory != null) {
+            //**对象转移**只在循环依赖时才会发生
+						singletonObject = singletonFactory.getObject();
+						this.earlySingletonObjects.put(beanName, singletonObject);
+						this.singletonFactories.remove(beanName);
+					}
+				}
+			}
+      return singletonObject;
+	}
+```
+
+
+
+为什么要在两个对象,而非直接用earlySingletonObjects存储getEarlyBeanReference生成的对象呢?
+
+**节省资源**,getEarlyBeanReference是一个相对耗时的操作(生成代理,mock都不是简单操作),而大部分bean不会有循环依赖存在,也就不会发生对象转移. 不会调用到getEarlyBeanReference,进而节省资源.
+
+
+
 主要方法
+
 ```java
 getSingleton(String beanName, boolean allowEarlyReference)
 getSingleton(String beanName, ObjectFactory<?> objectFactory)    
@@ -151,7 +194,6 @@ getSingleton(String beanName, ObjectFactory<?> objectFactory)
 * 标记创建完成
 
 singletonObjcts和earlySingletonObjects记录的都是引用,
-
 
 
 
