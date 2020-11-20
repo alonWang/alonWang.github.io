@@ -37,21 +37,45 @@
 
 ### maven
 
-* 复制一份maven的 setting.xml放到{user-path}/.m2/setting.xml,添加国内镜像 
+* 将maven的bin目录添加到系统环境变量Path中
+
+* 修改setting.xml 修改本地仓库地址 添加国内镜像,默认profile
 
 ```xml
+<localRepository>/path/to/local/repo</localRepository>
+
 <mirror>
 <id>nexus-aliyun</id>
 <mirrorOf>central</mirrorOf>
 <name>Nexus aliyun</name>
 <url>http://maven.aliyun.com/nexus/content/groups/public</url>
 </mirror>
+
+
+<profile>
+  <id>jdk-1.8</id>
+
+  <activation>
+    <activeByDefault>true</activeByDefault>
+    <jdk>1.8</jdk>
+  </activation>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+  </properties>
+</profile>
+
+
+
 ```
 
+* 
 * User settings file 和Local repository都使用默认的{user-path}/.m2/路径,无需override
   * 假如指定了别的路径.   可能导致IDE和命令行执行相同mvn命令得出的结果不同
     *  例如在命令行执行 mvn clean   ,使用的setting file 和repository默认就是 .m2路径下的,而IDE用的是自定义的.  如果不了解原理,会导致很多莫名其妙的问题
-
+  *  
 * 开启并行编译 Thread count 添加1C   实测编译速度提升一倍.
 
 ![image-20200924185104979](img/maven.png)

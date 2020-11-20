@@ -7,6 +7,7 @@
 * [Java语言中的Type](./article/Java/Java语言中的Type.md)
 * [榨干枚举](./article/Java/榨干枚举.md)
 * [枚举和设计模式不得不说的故事](./article/Java/枚举和设计模式不得不说的故事.md)
+* [System.nanoTime()与System.currentTimeMillis()的区别](./article/Java/nanoTime.md)
 * [软引用回收机制](./article/Java/软引用.md)
 ### Spring
 * [Spring基础](./article/Spring/Spring基础.md)
@@ -14,6 +15,7 @@
 * [SpringBoot中@Autowired是如何生效的](./article/Spring/SpringBoot中@Autowired是如何生效的.md)
 * [ApplicationContext是如何注入的](./article/Spring/ApplicationContext是如何被注入的.md)
 * [SpringBoot中@Component时如何生效的](./article/Spring/SpringBoot中@Component是如何生效的.md)
+* [Spring是如何支持setter注入方式的循环依赖](./article/Spring/Spring中循环依赖是如何解决的.md)
 ### Netty
 * [Netty原理介绍](./article/Netty/Netty原理简介.md)
 * [ 打造自己的通信框架一——引言](./article/Netty/打造自己的通信框架一.md)
