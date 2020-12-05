@@ -9,6 +9,7 @@
 * [枚举和设计模式不得不说的故事](./article/Java/枚举和设计模式不得不说的故事.md)
 * [System.nanoTime()与System.currentTimeMillis()的区别](./article/Java/nanoTime.md)
 * [软引用回收机制](./article/Java/软引用.md)
+* [为什么监视器锁需要可重入](./article/Java/为什么监视器锁需要可重入.md)
 ### Spring
 * [Spring基础](./article/Spring/Spring基础.md)
 * [SpringBoot启动简介](./article/Spring/SpringBoot启动流程.md)
